@@ -17,24 +17,27 @@ Install
     mkdir vimppm && cd vimppm
     git clone git://github.com/cd01/vimppm
 
-    " .vimperatorrc
-    source ~/.vimperator/vimppm/plugin/vimppm/vimppm.js
-
 
 Usage
 -----
 
+Sample `.vimperatorrc`
+
 .. code-block::
 
-    " .vimperatorrc
+    source ~/.vimperator/vimppm/plugin/vimppm/vimppm.js
+
+    " Github
     vimppm 'cd01/evernote-clearly-vimp'
     vimppm 'hoge/hogehoge-vimp'
     vimppm 'homu/homuhomu-vimp'
 
+    " Vimpr
+    vimppm '_smooziee.js'
+    vimppm 'copy.js'
+    vimppm 'caret-hint.js'
 
-.. code-block::
 
-    vimppm install " Install
-    vimppm update  " Update all
+run `:vimppm install`
 
 
