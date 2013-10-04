@@ -50,7 +50,11 @@ function getVimppmDir() {
 
     if (vimperatorDir.exists()) return "~/.vimperator/vimppm";
 
-    var vimperatorDir = io.File(io.File.expandPath("~/_vimperator"));
+    vimperatorDir = io.File(io.File.expandPath("~/vimperator"));
+
+    if (vimperatorDir.exists()) return "~/vimperator/vimppm";
+
+    vimperatorDir = io.File(io.File.expandPath("~/_vimperator"));
 
     if (underscoreVimperatorDir.exists())
         return "~/_vimperator/vimppm";
