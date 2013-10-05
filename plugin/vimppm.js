@@ -1,12 +1,18 @@
+// vimppm
+// Copyright (c) 2013 CD01
+// This software is released under the MIT License.
+// http://opensource.org/licenses/mit-license.php
+
+
 let INFO = xml`
-    <plugin name="vimppm" version="0.0.1"
+    <plugin name="vimppm" version="0.0.2"
             href="https://github.com/cd01/vimppm"
             summary="Vimperator Plugin Manager"
-            lang="ja"
+            lang="en"
             xmlns="http://vimperator.org/namespaces/liberator">
         <author>CD01</author>
-        <license>New BSD License</license>
-        <project name="Vimperator" minVersion="3.0"/>
+        <license>MIT</license>
+        <project name="Vimperator" minVersion="3.7"/>
         <p>
             Vimppm
         </p>

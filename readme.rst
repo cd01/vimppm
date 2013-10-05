@@ -40,4 +40,8 @@ Sample `.vimperatorrc`
 
 run `:vimppm install`
 
+Licence
+-------
+
+This software is released under the MIT License, see LICENSE.rst
 
