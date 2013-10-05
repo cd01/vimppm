@@ -16,7 +16,7 @@ let INFO = xml`
             <spec>:vimppm</spec>
             <description>
                 <p>
-                    vimppm で管理する
+                    manage plugin by vimppm
                 </p>
             </description>
         </item>
@@ -26,7 +26,7 @@ let INFO = xml`
             <spec>:vimppm install</spec>
             <description>
                 <p>
-                    install
+                    install all bundled plugins
                 </p>
             </description>
         </item>
@@ -36,7 +36,7 @@ let INFO = xml`
             <spec>:vimppm update</spec>
             <description>
                 <p>
-                    update
+                    update all bundled plugins
                 </p>
             </description>
         </item>
