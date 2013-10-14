@@ -90,7 +90,7 @@ function installFromGithub(vimppmRepositoryName) {
         }
         return true;
     } else {
-        liberator.echoerr(vimppmRepositoryName + 'is already exists!');
+        liberator.echoerr(vimppmRepositoryName + ' is already exists!');
         return false;
     }
 }
@@ -105,7 +105,7 @@ function gitPull(vimppmRepositoryName) {
         }
         return true;
     } else {
-        liberator.echoerr(vimppmRepositoryName + "isn't installed");
+        liberator.echoerr(vimppmRepositoryName + " isn't installed");
         return false;
     }
 }
@@ -124,7 +124,7 @@ function installFromVimpr(pluginName) {
         }
         return true;
     } else {
-        liberator.echoerr(pluginName + 'is already exists!');
+        liberator.echoerr(pluginName + ' is already exists!');
         return false;
     }
 }
@@ -141,7 +141,7 @@ function updateFromVimpr(pluginName) {
         }
         return true;
     } else {
-        liberator.echoerr(pluginName + "isn't installed");
+        liberator.echoerr(pluginName + " isn't installed");
         return false;
     }
 }
