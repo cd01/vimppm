@@ -49,6 +49,9 @@ let INFO = xml`
     </plugin>`;
 
 
+var gitProtocol = (liberator.globalVariables.vimppm_default_git_protocol == undefined)
+                ? 'https'
+                : liberator.globalVariables.vimppm_default_git_protocol;
 var vimppmDirPath = getVimppmDir();
 
 function getVimppmDir() {
@@ -81,9 +84,9 @@ function installFromGithub(vimppmRepositoryName) {
     var pluginDirPath = vimppmDirPath + '/' + vimppmRepositoryName.split('/')[1];
     if (!isDirectory(pluginDirPath)) {
         if (liberator.has('Windows')) {
-            liberator.execute('!powershell -NoProfile -ExecutionPolicy unrestricted -Command cd "' + vimppmDirPath + '"; git clone git://github.com/' + vimppmRepositoryName + '.git');
+            liberator.execute('!powershell -NoProfile -ExecutionPolicy unrestricted -Command cd "' + vimppmDirPath + '"; git clone ' + gitProtocol + '://github.com/' + vimppmRepositoryName + '.git');
         } else {
-            liberator.execute('!cd ' + vimppmDirPath + ' && git clone git://github.com/' + vimppmRepositoryName + '.git');
+            liberator.execute('!cd ' + vimppmDirPath + ' && git clone ' + gitProtocol + '://github.com/' + vimppmRepositoryName + '.git');
         }
         return true;
     } else {
