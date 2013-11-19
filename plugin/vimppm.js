@@ -161,7 +161,7 @@ function updateFromVimpr(pluginName) {
 
             if (isDirectory(pluginDirPath)) {
                 liberator.execute('set rtp+=' + pluginDirPath);
-                liberator.echo('Add ' + pluginDirPath + ' to runtimepath.');
+                Console.log('Add ' + pluginDirPath + ' to runtimepath.');
             }
 
             vimppmRepository.push(args[0]);
