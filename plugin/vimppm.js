@@ -1,5 +1,5 @@
 // vimppm
-// Copyright (c) 2013 CD01
+// Copyright (c) 2013-2014 CD01
 // This software is released under the MIT License.
 // http://opensource.org/licenses/mit-license.php
 
@@ -84,11 +84,11 @@ function isDirectory(path) {
 function installFromGithub(vimppmRepositoryName) {
     var pluginDirPath = vimppmDirPath + '/' + vimppmRepositoryName.split('/')[1];
     if (!isDirectory(pluginDirPath)) {
-        if (liberator.has('Windows')) {
+        if (liberator.has('Windows'))
             liberator.execute(powershellCommand + 'cd "' + vimppmDirPath + '"; git clone ' + gitProtocol + '://github.com/' + vimppmRepositoryName + '.git');
-        } else {
+        else
             liberator.execute('!cd ' + vimppmDirPath + ' && git clone ' + gitProtocol + '://github.com/' + vimppmRepositoryName + '.git');
-        }
+
         return true;
     } else {
         liberator.echoerr(vimppmRepositoryName + ' already exists!');
@@ -99,16 +99,20 @@ function installFromGithub(vimppmRepositoryName) {
 function gitPull(vimppmRepositoryName) {
     var pluginDirPath = vimppmDirPath + '/' + vimppmRepositoryName.split('/')[1];
     if (isDirectory(pluginDirPath)) {
-        if (liberator.has('Windows')) {
+        if (liberator.has('Windows'))
             liberator.execute(powershellCommand + 'cd "' + pluginDirPath + '"; git pull');
-        } else {
+        else
             liberator.execute('!cd ' + pluginDirPath + ' && git pull');
-        }
+
         return true;
     } else {
         liberator.echoerr(vimppmRepositoryName + " isn't installed");
         return false;
     }
+}
+
+function installTwittperatorFromVimpr(pluginName) {
+    // TODO:
 }
 
 function installFromVimpr(pluginName) {
@@ -151,7 +155,8 @@ function updateFromVimpr(pluginName) {
 (function () {
     var vimppmRepository = [];
 
-    commands.addUserCommand(['vimppm'], 'VIMPeratorPluginManage command',
+    commands.addUserCommand(
+        ['vimppm'], 'VIMPeratorPluginManage command',
         function (args) {
             // vimppm "cd01/plugin-vimp" "{'hoge': 'hogehoge'}"
             // JSON.parse(args[1]).hoge;
@@ -160,16 +165,14 @@ function updateFromVimpr(pluginName) {
             if (isGithubRepository(repositoryName)) repositoryName = repositoryName.split('/')[1];
             var pluginDirPath = vimppmDirPath + '/' + repositoryName;
 
-            if (isDirectory(pluginDirPath)) {
+            if (isDirectory(pluginDirPath))
                 liberator.execute('set rtp+=' + pluginDirPath);
-            }
 
             vimppmRepository.push(args[0]);
         }, {
             subCommands: [
                 new Command(
-                    ['install'],
-                    'install plugin',
+                    ['install'], 'install plugin',
                     function (args) {
                         if (args == "") {
                             for (var i = 0; i < vimppmRepository.length; i++) {
@@ -184,12 +187,12 @@ function updateFromVimpr(pluginName) {
                             else
                                 installFromVimpr(args);
                         }
+
                         liberator.echo("Vimperator plugins are installed!! Please, restart vimperator.");
                     }
                 ),
                 new Command(
-                    ['update'],
-                    'update plugin',
+                    ['update'], 'update plugin',
                     function (args) {
                         if (args == "") {
                             for (var i = 0; i < vimppmRepository.length; i++) {
@@ -204,6 +207,7 @@ function updateFromVimpr(pluginName) {
                             else
                                 updateFromVimpr(args[0]);
                         }
+
                         liberator.echo("Vimperator plugins are updated. Please, restart vimperator.");
                     }
                 )
