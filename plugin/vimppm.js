@@ -66,7 +66,7 @@ function getVimppmDir() {
 
     vimperatorDir = io.File(io.File.expandPath("~/_vimperator"));
 
-    if (underscoreVimperatorDir.exists())
+    if (vimperatorDir.exists())
         return "~/_vimperator/vimppm";
     else
         return false;
