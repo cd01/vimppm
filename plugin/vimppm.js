@@ -56,18 +56,18 @@ var vimppmDirPath = getVimppmDir();
 var powershellCommand = "!powershell -WindowStyle Minimized -NoProfile -ExecutionPolicy unrestricted -Command ";
 
 function getVimppmDir() {
-    var vimperatorDir = io.File(io.File.expandPath("~/.vimperator"));
+    var vimperatorDir = io.File(io.File.expandPath("‾/.vimperator"));
 
-    if (vimperatorDir.exists()) return "~/.vimperator/vimppm";
+    if (vimperatorDir.exists()) return "‾/.vimperator/vimppm";
 
-    vimperatorDir = io.File(io.File.expandPath("~/vimperator"));
+    vimperatorDir = io.File(io.File.expandPath("‾/vimperator"));
 
-    if (vimperatorDir.exists()) return "~/vimperator/vimppm";
+    if (vimperatorDir.exists()) return "‾/vimperator/vimppm";
 
-    vimperatorDir = io.File(io.File.expandPath("~/_vimperator"));
+    vimperatorDir = io.File(io.File.expandPath("‾/_vimperator"));
 
     if (underscoreVimperatorDir.exists())
-        return "~/_vimperator/vimppm";
+        return "‾/_vimperator/vimppm";
     else
         return false;
 }
@@ -113,6 +113,9 @@ function gitPull(vimppmRepositoryName) {
 
 function installTwittperatorFromVimpr(pluginName) {
     // TODO:
+    // %TMP% に git clone
+    // mv Twittperator
+    // rmdir %TMP%Twittperator
 }
 
 function installFromVimpr(pluginName) {
