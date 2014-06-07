@@ -11,7 +11,7 @@ Require
 Install
 -------
 
-.. code-block::
+.. code-block:: sh
 
     cd ~/.vimperator
     mkdir vimppm && cd vimppm
@@ -23,7 +23,7 @@ Usage
 
 Sample `.vimperatorrc`
 
-.. code-block::
+.. code-block:: vim
 
     source ~/.vimperator/vimppm/plugin/vimppm/vimppm.js
 
