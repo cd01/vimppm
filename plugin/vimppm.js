@@ -56,15 +56,15 @@ var vimppmDirPath = getVimppmDir();
 var powershellCommand = "!powershell -WindowStyle Minimized -NoProfile -ExecutionPolicy unrestricted -Command ";
 
 function getVimppmDir() {
-    var vimperatorDir = io.File(io.File.expandPath("‾/.vimperator"));
+    var vimperatorDir = io.File(io.File.expandPath("~/.vimperator"));
 
-    if (vimperatorDir.exists()) return "‾/.vimperator/vimppm";
+    if (vimperatorDir.exists()) return "~/.vimperator/vimppm";
 
-    vimperatorDir = io.File(io.File.expandPath("‾/vimperator"));
+    vimperatorDir = io.File(io.File.expandPath("~/vimperator"));
 
-    if (vimperatorDir.exists()) return "‾/vimperator/vimppm";
+    if (vimperatorDir.exists()) return "~/vimperator/vimppm";
 
-    vimperatorDir = io.File(io.File.expandPath("‾/_vimperator"));
+    vimperatorDir = io.File(io.File.expandPath("~/_vimperator"));
 
     if (vimperatorDir.exists())
         return "~/_vimperator/vimppm";
