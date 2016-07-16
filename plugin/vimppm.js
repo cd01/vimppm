@@ -49,9 +49,9 @@ var INFO = xml`
     </plugin>`;
 // }}}
 
-var gitProtocol = (liberator.globalVariables.vimppm_default_git_protocol) ? 'https' : liberator.globalVariables.vimppm_default_git_protocol;
+var gitCommand = (liberator.globalVariables.vimppm_git_command) ? liberator.globalVariables.vimppm_git_command : 'git';
+var gitProtocol = (liberator.globalVariables.vimppm_git_protocol) ? liberator.globalVariables.vimppm_git_protocol : 'https';
 var vimppmDirPath = getVimppmDir();
-var powershellCommand = "!powershell -WindowStyle Minimized -NoProfile -ExecutionPolicy unrestricted -Command ";
 
 function getVimppmDir() {
     var vimperatorDir = io.File(io.expandPath("~/.vimperator"));
@@ -82,11 +82,8 @@ function isDirectory(path) {
 function installFromGithub(vimppmRepositoryName) {
     var pluginDirPath = vimppmDirPath + '/' + vimppmRepositoryName.split('/')[1];
     if (!isDirectory(pluginDirPath)) {
-        if (liberator.has('Windows'))
-            liberator.execute(powershellCommand + 'cd "' + vimppmDirPath + '"; git clone ' + gitProtocol + '://github.com/' + vimppmRepositoryName + '.git');
-        else
-            liberator.execute('!cd ' + vimppmDirPath + ' && git clone ' + gitProtocol + '://github.com/' + vimppmRepositoryName + '.git');
-
+        liberator.execute('!' + gitCommand + ' clone ' + gitProtocol + '://github.com/' + vimppmRepositoryName + '.git ' + io.expandPath(pluginDirPath));
+        liberator.echo("Vimperator plugins are installed!! Please, restart vimperator.");
         return true;
     } else {
         liberator.echoerr(vimppmRepositoryName + ' already exists!');
@@ -97,11 +94,8 @@ function installFromGithub(vimppmRepositoryName) {
 function gitPull(vimppmRepositoryName) {
     var pluginDirPath = vimppmDirPath + '/' + vimppmRepositoryName.split('/')[1];
     if (isDirectory(pluginDirPath)) {
-        if (liberator.has('Windows'))
-            liberator.execute(powershellCommand + 'cd "' + pluginDirPath + '"; git pull');
-        else
-            liberator.execute('!cd ' + pluginDirPath + ' && git pull');
-
+        liberator.execute('!' + gitCommand + ' pull ' + io.expandPath(pluginDirPath));
+        liberator.echo("Vimperator plugins are updated!! Please, restart vimperator.");
         return true;
     } else {
         liberator.echoerr(vimppmRepositoryName + " isn't installed");
@@ -134,12 +128,13 @@ function installFromVimpr(pluginName) {
                     var f = io.File(destPath)
                     f.write(xhr.responseText);
                     liberator.echo("Downloaded " + pluginName, true);
+                    liberator.echo("Vimperator plugins are installed!! Please, restart vimperator.");
                 } else {
-                    liberator.echoerr(": " + xhr.statusText);
+                    liberator.echoerr(downloadUrl + ": " + xhr.statusText);
                 }
             }
         };
-        xhr.onerror = function (e) { liberator.echoerr(": " + xhr.statusText); };
+        xhr.onerror = function (e) { liberator.echoerr(downloadUrl + ": " + xhr.statusText); };
         xhr.send(null);
 
         return true;
@@ -152,13 +147,25 @@ function installFromVimpr(pluginName) {
 function updateFromVimpr(pluginName) {
     var pluginDirPath = vimppmDirPath + '/' + pluginName;
     if (isDirectory(pluginDirPath)) {
-        if (liberator.has('Windows')) {
-            var downloadUrl = 'https://raw.githubusercontent.com/vimpr/vimperator-plugins/master/' + pluginName;
-            var destPath = io.expandPath(pluginDirPath + '/plugin/' + pluginName)
-            liberator.execute(powershellCommand + '$(new-object System.Net.WebClient).DownloadFile("' + downloadUrl + '", "' + destPath + '")');
-        } else {
-            liberator.execute('!wget https://raw.githubusercontent.com/vimpr/vimperator-plugins/master/' + pluginName + ' -O ' + io.expandPath(pluginDirPath) + '/plugin/' + pluginName);
-        }
+        // Download a js file
+        var downloadUrl = 'https://raw.githubusercontent.com/vimpr/vimperator-plugins/master/' + pluginName;
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", downloadUrl, true);
+        xhr.onload = function (e) {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var f = io.File(destPath)
+                    f.write(xhr.responseText);
+                    liberator.echo("Downloaded " + pluginName, true);
+                    liberator.echo("Vimperator plugins are updated!! Please, restart vimperator.");
+                } else {
+                    liberator.echoerr(downloadUrl + ": " + xhr.statusText);
+                }
+            }
+        };
+        xhr.onerror = function (e) { liberator.echoerr(downloadUrl + ": " + xhr.statusText); };
+        xhr.send(null);
+
         return true;
     } else {
         liberator.echoerr(pluginName + " isn't installed");
@@ -201,8 +208,6 @@ function updateFromVimpr(pluginName) {
                             else
                                 installFromVimpr(args);
                         }
-
-                        liberator.echo("Vimperator plugins are installed!! Please, restart vimperator.");
                     }
                 ),
                 new Command(

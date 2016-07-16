@@ -4,16 +4,12 @@
 
 ## Require
 
-* Git
-* if you use Windows, you require Windows 7+ or to install PowerShell.
-
+* Git command
 
 # Install
 
 ``` sh
-cd ~/.vimperator
-mkdir vimppm && cd vimppm
-git clone git://github.com/cd01/vimppm
+git clone git://github.com/cd01/vimppm ~/.vimperator/vimppm
 ```
 
 # Usage
