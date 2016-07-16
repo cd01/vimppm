@@ -1,5 +1,5 @@
 // vimppm
-// Copyright (c) 2015 CD01
+// Copyright (c) 2016 CD01
 // This software is released under the MIT License.
 // http://opensource.org/licenses/mit-license.php
 
