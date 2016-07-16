@@ -3,6 +3,7 @@
 // This software is released under the MIT License.
 // http://opensource.org/licenses/mit-license.php
 
+// INFO {{{
 var INFO = xml`
     <plugin name="vimppm" version="0.0.3"
             href="https://github.com/cd01/vimppm"
@@ -46,6 +47,7 @@ var INFO = xml`
             </description>
         </item>
     </plugin>`;
+// }}}
 
 var gitProtocol = (liberator.globalVariables.vimppm_default_git_protocol) ? 'https' : liberator.globalVariables.vimppm_default_git_protocol;
 var vimppmDirPath = getVimppmDir();
@@ -214,4 +216,4 @@ function updateFromVimpr(pluginName) {
     );
 })();
 
-// vim:sw=4 ts=4 et :
+// vim:sw=4 ts=4 et fdm=marker:
