@@ -3,7 +3,6 @@
 // This software is released under the MIT License.
 // http://opensource.org/licenses/mit-license.php
 
-
 var INFO = xml`
     <plugin name="vimppm" version="0.0.3"
             href="https://github.com/cd01/vimppm"
@@ -49,20 +48,18 @@ var INFO = xml`
     </plugin>`;
 
 
-var gitProtocol = (liberator.globalVariables.vimppm_default_git_protocol == undefined)
-                ? 'https'
-                : liberator.globalVariables.vimppm_default_git_protocol;
+var gitProtocol = (liberator.globalVariables.vimppm_default_git_protocol) ? 'https' : liberator.globalVariables.vimppm_default_git_protocol;
 var vimppmDirPath = getVimppmDir();
 var powershellCommand = "!powershell -WindowStyle Minimized -NoProfile -ExecutionPolicy unrestricted -Command ";
 
 function getVimppmDir() {
     var vimperatorDir = io.File(io.File.expandPath("~/.vimperator"));
 
-    if (vimperatorDir.exists()) return "~/.vimperator/vimppm";
+    if (vimperatorDir.exists()) { return "~/.vimperator/vimppm"; }
 
     vimperatorDir = io.File(io.File.expandPath("~/vimperator"));
 
-    if (vimperatorDir.exists()) return "~/vimperator/vimppm";
+    if (vimperatorDir.exists()) { return "~/vimperator/vimppm"; }
 
     vimperatorDir = io.File(io.File.expandPath("~/_vimperator"));
 
@@ -73,12 +70,12 @@ function getVimppmDir() {
 }
 
 function isGithubRepository(repositoryName) {
-    return (repositoryName.indexOf('/') !== -1) ? true : false;
+    return (repositoryName.indexOf('/') !== -1);
 }
 
 function isDirectory(path) {
     var pluginDir = io.File(io.File.expandPath(path));
-    return (pluginDir.exists() && pluginDir.isDirectory()) ? true : false;
+    return (pluginDir.exists() && pluginDir.isDirectory());
 }
 
 function installFromGithub(vimppmRepositoryName) {
@@ -160,7 +157,7 @@ function updateFromVimpr(pluginName) {
 
     commands.addUserCommand(
         ['vimppm'], 'VIMPeratorPluginManage command',
-        function (args) {
+        function(args) {
             // vimppm "cd01/plugin-vimp" "{'hoge': 'hogehoge'}"
             // JSON.parse(args[1]).hoge;
 
@@ -168,8 +165,7 @@ function updateFromVimpr(pluginName) {
             if (isGithubRepository(repositoryName)) repositoryName = repositoryName.split('/')[1];
             var pluginDirPath = vimppmDirPath + '/' + repositoryName;
 
-            if (isDirectory(pluginDirPath))
-                liberator.execute('set rtp+=' + pluginDirPath);
+            if (isDirectory(pluginDirPath)) { liberator.execute('set rtp+=' + pluginDirPath); }
 
             vimppmRepository.push(args[0]);
         }, {
