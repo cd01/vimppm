@@ -20,9 +20,8 @@ Sample `.vimperatorrc`
 source ~/.vimperator/vimppm/plugin/vimppm/vimppm.js
 
 " Github
-vimppm 'cd01/evernote-clearly-vimp'
+vimppm 'cd01/suddendeath-vimp'
 vimppm 'hoge/hogehoge-vimp'
-vimppm 'homu/homuhomu-vimp'
 
 " Vimpr
 vimppm '_smooziee.js'
