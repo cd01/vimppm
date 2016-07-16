@@ -47,21 +47,20 @@ var INFO = xml`
         </item>
     </plugin>`;
 
-
 var gitProtocol = (liberator.globalVariables.vimppm_default_git_protocol) ? 'https' : liberator.globalVariables.vimppm_default_git_protocol;
 var vimppmDirPath = getVimppmDir();
 var powershellCommand = "!powershell -WindowStyle Minimized -NoProfile -ExecutionPolicy unrestricted -Command ";
 
 function getVimppmDir() {
-    var vimperatorDir = io.File(io.File.expandPath("~/.vimperator"));
+    var vimperatorDir = io.File(io.expandPath("~/.vimperator"));
 
     if (vimperatorDir.exists()) { return "~/.vimperator/vimppm"; }
 
-    vimperatorDir = io.File(io.File.expandPath("~/vimperator"));
+    vimperatorDir = io.File(io.expandPath("~/vimperator"));
 
     if (vimperatorDir.exists()) { return "~/vimperator/vimppm"; }
 
-    vimperatorDir = io.File(io.File.expandPath("~/_vimperator"));
+    vimperatorDir = io.File(io.expandPath("~/_vimperator"));
 
     if (vimperatorDir.exists())
         return "~/_vimperator/vimppm";
@@ -74,7 +73,7 @@ function isGithubRepository(repositoryName) {
 }
 
 function isDirectory(path) {
-    var pluginDir = io.File(io.File.expandPath(path));
+    var pluginDir = io.File(io.expandPath(path));
     return (pluginDir.exists() && pluginDir.isDirectory());
 }
 
@@ -120,12 +119,12 @@ function installFromVimpr(pluginName) {
     if (!isDirectory(pluginDirPath)) {
         if (liberator.has('Windows')) {
             var downloadUrl = 'https://raw.github.com/vimpr/vimperator-plugins/master/' + pluginName;
-            var destPath = io.File.expandPath(pluginDirPath + '/plugin/' + pluginName)
-            liberator.execute(powershellCommand + 'New-Item -type directory "' + io.File.expandPath(pluginDirPath) + '/plugin"');
+            var destPath = io.expandPath(pluginDirPath + '/plugin/' + pluginName)
+            liberator.execute(powershellCommand + 'New-Item -type directory "' + io.expandPath(pluginDirPath) + '/plugin"');
             liberator.execute(powershellCommand + '$(new-object System.Net.WebClient).DownloadFile("' + downloadUrl + '", "' + destPath + '")');
         } else {
-            liberator.execute('!mkdir -p ' + io.File.expandPath(pluginDirPath) + '/plugin');
-            liberator.execute('!wget https://raw.github.com/vimpr/vimperator-plugins/master/' + pluginName + ' -P ' + io.File.expandPath(pluginDirPath) + '/plugin/');
+            liberator.execute('!mkdir -p ' + io.expandPath(pluginDirPath) + '/plugin');
+            liberator.execute('!wget https://raw.github.com/vimpr/vimperator-plugins/master/' + pluginName + ' -P ' + io.expandPath(pluginDirPath) + '/plugin/');
         }
         return true;
     } else {
@@ -139,10 +138,10 @@ function updateFromVimpr(pluginName) {
     if (isDirectory(pluginDirPath)) {
         if (liberator.has('Windows')) {
             var downloadUrl = 'https://raw.github.com/vimpr/vimperator-plugins/master/' + pluginName;
-            var destPath = io.File.expandPath(pluginDirPath + '/plugin/' + pluginName)
+            var destPath = io.expandPath(pluginDirPath + '/plugin/' + pluginName)
             liberator.execute(powershellCommand + '$(new-object System.Net.WebClient).DownloadFile("' + downloadUrl + '", "' + destPath + '")');
         } else {
-            liberator.execute('!wget https://raw.github.com/vimpr/vimperator-plugins/master/' + pluginName + ' -O ' + io.File.expandPath(pluginDirPath) + '/plugin/' + pluginName);
+            liberator.execute('!wget https://raw.github.com/vimpr/vimperator-plugins/master/' + pluginName + ' -O ' + io.expandPath(pluginDirPath) + '/plugin/' + pluginName);
         }
         return true;
     } else {
