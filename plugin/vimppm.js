@@ -119,15 +119,29 @@ function installTwittperatorFromVimpr(pluginName) {
 function installFromVimpr(pluginName) {
     var pluginDirPath = vimppmDirPath + '/' + pluginName;
     if (!isDirectory(pluginDirPath)) {
-        if (liberator.has('Windows')) {
-            var downloadUrl = 'https://raw.githubusercontent.com/vimpr/vimperator-plugins/master/' + pluginName;
-            var destPath = io.expandPath(pluginDirPath + '/plugin/' + pluginName)
-            liberator.execute(powershellCommand + 'New-Item -type directory "' + io.expandPath(pluginDirPath) + '/plugin"');
-            liberator.execute(powershellCommand + '$(new-object System.Net.WebClient).DownloadFile("' + downloadUrl + '", "' + destPath + '")');
-        } else {
-            liberator.execute('!mkdir -p ' + io.expandPath(pluginDirPath) + '/plugin');
-            liberator.execute('!wget https://raw.githubusercontent.com/vimpr/vimperator-plugins/master/' + pluginName + ' -P ' + io.expandPath(pluginDirPath) + '/plugin/');
-        }
+        // Create a plugin directory
+        var destPath = io.expandPath(pluginDirPath + '/plugin/' + pluginName)
+        var dir = io.File(pluginDirPath + '/plugin/');
+        if (!dir.exists() || !dir.isDirectory()) { dir.create(Components.interfaces.nsIFile.DIRECTORY_TYPE, 0664); }
+
+        // Download a js file
+        var downloadUrl = 'https://raw.githubusercontent.com/vimpr/vimperator-plugins/master/' + pluginName;
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", downloadUrl, true);
+        xhr.onload = function (e) {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var f = io.File(destPath)
+                    f.write(xhr.responseText);
+                    liberator.echo("Downloaded " + pluginName, true);
+                } else {
+                    liberator.echoerr(": " + xhr.statusText);
+                }
+            }
+        };
+        xhr.onerror = function (e) { liberator.echoerr(": " + xhr.statusText); };
+        xhr.send(null);
+
         return true;
     } else {
         liberator.echoerr(pluginName + ' already exists!');
