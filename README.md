@@ -9,7 +9,7 @@
 # Install
 
 ``` sh
-git clone git://github.com/cd01/vimppm ~/.vimperator/vimppm
+git clone https://github.com/cd01/vimppm.git ~/.vimperator/vimppm
 ```
 
 # Usage
